@@ -6,7 +6,7 @@ L’application se lance avec Docker Compose, ou en local avec le serveur de dé
 
 ## Prérequis
 
-- [Docker](https://docs.docker.com/get-docker/) et Docker Compose, pour `make up`
+- [Docker](https://docs.docker.com/get-docker/) et Docker Compose, pour `make start`
 - Node.js 22.12 ou plus récent, pour le développement local
 - `make`
 
@@ -24,25 +24,25 @@ cp .env.example .env
 | `PORT`     | Port publié sur la machine et dans l’app  | `4321`        |
 | `NODE_ENV` | Environnement Node                        | `development` |
 
-`make up` et `make dev` créent `.env` automatiquement s’il manque.
+`make start` et `make dev` créent `.env` automatiquement s’il manque.
 
 ## Lancer l’application
 
 Avec Docker, depuis la racine du projet :
 
 ```sh
-make up
+make start
 ```
 
-Le site est alors disponible sur [http://localhost:4321](http://localhost:4321).
+Le site est alors disponible sur [http://localhost:4321](http://localhost:4321). Pour l’arrêter : `make stop`.
 
 | Commande       | Action                                      |
 | -------------- | ------------------------------------------- |
 | `make`         | Liste les commandes                         |
-| `make up`      | Construit l’image et démarre le conteneur   |
+| `make start`   | Construit l’image et démarre le conteneur   |
+| `make stop`    | Arrête et supprime le conteneur             |
 | `make logs`    | Suit les logs                               |
 | `make restart` | Redémarre le conteneur                      |
-| `make down`    | Arrête et supprime le conteneur             |
 | `make build`   | Reconstruit l’image sans la démarrer        |
 
 ## Développement local
