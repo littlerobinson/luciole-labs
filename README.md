@@ -1,46 +1,71 @@
-# Astro Starter Kit: Basics
+# Luciole Labs
+
+Site Astro servi par Node.js. Les pages sont pré-rendues, puis exposées par l’adaptateur `@astrojs/node` en mode standalone.
+
+L’application se lance avec Docker Compose, ou en local avec le serveur de développement Astro. Les deux écoutent le port défini dans `.env` (4321 par défaut).
+
+## Prérequis
+
+- [Docker](https://docs.docker.com/get-docker/) et Docker Compose, pour `make up`
+- Node.js 22.12 ou plus récent, pour le développement local
+- `make`
+
+## Configuration
+
+Copier le fichier d’exemple, puis ajuster les valeurs si besoin :
 
 ```sh
-npm create astro@latest -- --template basics
+cp .env.example .env
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Variable   | Rôle                                      | Défaut        |
+| ---------- | ----------------------------------------- | ------------- |
+| `HOST`     | Interface d’écoute du serveur             | `0.0.0.0`     |
+| `PORT`     | Port publié sur la machine et dans l’app  | `4321`        |
+| `NODE_ENV` | Environnement Node                        | `development` |
 
-## 🚀 Project Structure
+`make up` et `make dev` créent `.env` automatiquement s’il manque.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Lancer l’application
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+Avec Docker, depuis la racine du projet :
+
+```sh
+make up
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Le site est alors disponible sur [http://localhost:4321](http://localhost:4321).
 
-## 🧞 Commands
+| Commande       | Action                                      |
+| -------------- | ------------------------------------------- |
+| `make`         | Liste les commandes                         |
+| `make up`      | Construit l’image et démarre le conteneur   |
+| `make logs`    | Suit les logs                               |
+| `make restart` | Redémarre le conteneur                      |
+| `make down`    | Arrête et supprime le conteneur             |
+| `make build`   | Reconstruit l’image sans la démarrer        |
 
-All commands are run from the root of the project, from a terminal:
+## Développement local
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Sans Docker :
 
-## 👀 Want to learn more?
+```sh
+make install
+make dev
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Le serveur de développement Astro démarre sur le même port. `make dev` recharge les pages à chaque modification des sources.
+
+Pour produire le build servi par le conteneur en dehors de Docker :
+
+```sh
+npm run build
+node ./dist/server/entry.mjs
+```
+
+## Pages
+
+| URL      | Contenu        |
+| -------- | -------------- |
+| `/`      | Accueil        |
+| `/about` | Page à propos  |
