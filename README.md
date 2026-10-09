@@ -2,7 +2,7 @@
 
 Site Astro servi par Node.js. Les pages sont pré-rendues, puis exposées par l’adaptateur `@astrojs/node` en mode standalone.
 
-L’application se lance avec Docker Compose, ou en local avec le serveur de développement Astro. Les deux écoutent le port défini dans `.env` (4321 par défaut).
+L’application se lance avec Docker Compose (serveur de développement Astro avec hot reload), ou en local avec `make dev`. Les deux écoutent le port défini dans `.env` (4321 par défaut).
 
 ## Prérequis
 
@@ -34,16 +34,18 @@ Avec Docker, depuis la racine du projet :
 make start
 ```
 
-Le site est alors disponible sur [http://localhost:4321](http://localhost:4321). Pour l’arrêter : `make stop`.
+Le site est alors disponible sur [http://localhost:4321](http://localhost:4321). Les sources du projet sont montées dans le conteneur : toute modification recharge la page automatiquement.
 
-| Commande       | Action                                      |
-| -------------- | ------------------------------------------- |
-| `make`         | Liste les commandes                         |
-| `make start`   | Construit l’image et démarre le conteneur   |
-| `make stop`    | Arrête et supprime le conteneur             |
-| `make logs`    | Suit les logs                               |
-| `make restart` | Redémarre le conteneur                      |
-| `make build`   | Reconstruit l’image sans la démarrer        |
+Pour l’arrêter : `make stop`. Après un changement de dépendances (`package.json`), reconstruire avec `make build` puis `make start`.
+
+| Commande       | Action                                                    |
+| -------------- | --------------------------------------------------------- |
+| `make`         | Liste les commandes                                       |
+| `make start`   | Construit l’image de développement et démarre le conteneur |
+| `make stop`    | Arrête et supprime le conteneur                           |
+| `make logs`    | Suit les logs                                             |
+| `make restart` | Redémarre le conteneur                                    |
+| `make build`   | Reconstruit l’image sans la démarrer                      |
 
 ## Développement local
 
@@ -54,9 +56,9 @@ make install
 make dev
 ```
 
-Le serveur de développement Astro démarre sur le même port. `make dev` recharge les pages à chaque modification des sources.
+Le serveur de développement Astro démarre sur le même port, avec le même hot reload.
 
-Pour produire le build servi par le conteneur en dehors de Docker :
+Pour un build de production (image Docker `runtime`, ou en local) :
 
 ```sh
 npm run build

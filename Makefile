@@ -11,7 +11,7 @@ env: ## Crée .env à partir de .env.example s'il n'existe pas
 install: ## Installe les dépendances npm
 	npm install
 
-start: env ## Construit l'image et démarre l'application
+start: env ## Construit l'image et démarre l'application (hot reload)
 	docker compose up --build -d
 
 stop: ## Arrête et supprime les conteneurs
