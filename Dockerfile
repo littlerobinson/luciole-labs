@@ -5,6 +5,13 @@ WORKDIR /app
 # Therefore, the `-deps` steps will be skipped if only the source code changes.
 COPY package.json package-lock.json ./
 
+FROM base AS development
+RUN npm install
+ENV HOST=0.0.0.0
+ENV PORT=4321
+EXPOSE 4321
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+
 FROM base AS prod-deps
 RUN npm install --omit=dev
 

@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/terminal/Header.astro";
+import Nav from "../components/terminal/Nav.astro";
+import Prompt from "../components/terminal/Prompt.astro";
+import Footer from "../components/terminal/Footer.astro";
+import Accueil from "../components/sections/Accueil.astro";
+import Prestations from "../components/sections/Prestations.astro";
+import Process from "../components/sections/Process.astro";
+import Tarifs from "../components/sections/Tarifs.astro";
+import Contact from "../components/sections/Contact.astro";
+import Grille from "../components/sections/Grille.astro";
+import Apropos from "../components/sections/Apropos.astro";
+import Faq from "../components/sections/Faq.astro";
+import Mentions from "../components/sections/Mentions.astro";
+---
+
+<Layout>
+  <div class="win">
+    <Header />
+    <Nav />
+
+    <main>
+      <Accueil />
+      <Prestations />
+      <Process />
+      <Tarifs />
+      <Contact />
+      <Grille />
+      <Apropos />
+      <Faq />
+      <Mentions />
+      <div class="out" id="out" aria-live="polite"></div>
+    </main>
+
+    <Prompt />
+    <Footer />
+  </div>
+</Layout>
+
+<script>
+  import "../scripts/terminal.js";
+</script>
