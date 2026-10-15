@@ -12,31 +12,15 @@
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #eef5ee;
-    --panel: #e3eee4;
-    --fg: #116a37;
-    --hi: #06401f;
-    --dim: #4f8a65;
-    --line: #b9d3c0;
-    --warn: #8a6100;
-    --page: #d5e3d7;
-  }
-}
-
-:root[data-accent="amber"] {
-  --fg: #e0a73a;
-  --hi: #ffd27a;
-  --dim: #9a7426;
-  --line: #3d2e10;
-}
-
-:root[data-accent="cyan"] {
-  --fg: #4cc9e0;
-  --hi: #9eefff;
-  --dim: #2b8294;
-  --line: #103540;
+:root[data-theme="light"] {
+  --bg: #eef5ee;
+  --panel: #e3eee4;
+  --fg: #116a37;
+  --hi: #06401f;
+  --dim: #4f8a65;
+  --line: #b9d3c0;
+  --warn: #8a6100;
+  --page: #d5e3d7;
 }
 
 html {
@@ -77,6 +61,14 @@ body.crt .win::after {
   background: repeating-linear-gradient(
     0deg,
     rgba(0, 0, 0, 0.18) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+[data-theme="light"] body.crt .win::after {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.06) 0 1px,
     transparent 1px 3px
   );
 }
@@ -407,4 +399,10 @@ footer {
 
 footer b {
   color: var(--hi);
+}
+
+/* Bouton thème clair / sombre (manuel) : n'affiche que l'action utile */
+[data-theme="dark"] #theme-toggle .to-dark,
+[data-theme="light"] #theme-toggle .to-light {
+  display: none;
 }

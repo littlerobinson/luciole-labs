@@ -75,23 +75,13 @@ input?.addEventListener("keydown", (event) => {
   } else if (value === "clear") {
     if (out) out.innerHTML = "";
   } else if (value === "theme") {
-    const select = document.getElementById("accent");
-    if (!select) return;
-    select.selectedIndex = (select.selectedIndex + 1) % select.options.length;
-    select.dispatchEvent(new Event("change"));
-    say(`Thème : ${select.options[select.selectedIndex].text}`);
+    document.getElementById("theme-toggle")?.click();
+    say(`Thème : ${document.documentElement.dataset.theme === "light" ? "clair" : "sombre"}`);
   } else if (go(value)) {
     say(`Ouverture de ${value}…`);
   } else {
     say(`commande introuvable : ${value} (tape help)`, "warn");
   }
-});
-
-document.getElementById("accent")?.addEventListener("change", (event) => {
-  const root = document.documentElement;
-  const value = event.target.value;
-  if (value) root.setAttribute("data-accent", value);
-  else root.removeAttribute("data-accent");
 });
 
 const crt = document.getElementById("crt");
