@@ -1,5 +1,5 @@
 ---
-import "../styles/terminal.css";
+import "../styles/site.css";
 
 interface Props {
   title?: string;
@@ -7,15 +7,45 @@ interface Props {
 }
 
 const {
-  title = "studio@luciole-labs ~/prestations",
-  description = "Aide et dépannage informatique à domicile, formation pour seniors, installation et ateliers collectifs dans les Hautes-Alpes.",
+  title = "Dépannage & Formation Informatique à Domicile - Hautes-Alpes | Luciole Labs",
+  description = "Aide et dépannage informatique à domicile pour particuliers et seniors dans les Hautes-Alpes (Gap, Briançon, Embrun). Tarifs clairs, patience et bienveillance sans jargon.",
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const pathname = Astro.url.pathname;
+const canonical = new URL(pathname, Astro.site || "https://luciolelabs.dev");
+
+const localBusinessSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Luciole Labs - Assistance Informatique à Domicile",
+  "description": description,
+  "url": Astro.site ? Astro.site.toString() : "https://luciolelabs.dev",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Service client",
+    "url": Astro.site ? new URL("/contact", Astro.site).toString() : "https://luciolelabs.dev/contact"
+  },
+  "priceRange": "20€ - 60€",
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Hautes-Alpes" },
+    { "@type": "City", "name": "Gap" },
+    { "@type": "City", "name": "Briançon" },
+    { "@type": "City", "name": "Embrun" },
+    { "@type": "City", "name": "Laragne-Montéglin" },
+    { "@type": "City", "name": "Veynes" }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "Hautes-Alpes",
+    "postalCode": "05000",
+    "addressCountry": "FR"
+  },
+  "openingHours": "Mo-Sa 08:30-19:00"
+});
 ---
 
 <!doctype html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -23,32 +53,135 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta property="og:site_name" content="Luciole Labs" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content="website" />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%96%A5%EF%B8%8F%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%92%A1%3C/text%3E%3C/svg%3E"
     />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Thème sauvegardé appliqué avant l'affichage (pas de flash). Sombre par défaut, jamais automatique. -->
+    <!-- Données structurées SEO Local Schema.org -->
+    <script type="application/ld+json" set:html={localBusinessSchema} />
+
+    <!-- Préférence taille police agrandie (A+) mémorisée -->
     <script is:inline>
       try {
-        document.documentElement.dataset.theme =
-          localStorage.getItem("theme") || "dark";
-      } catch (e) {}
+        if (localStorage.getItem("font_large") === "true") {
+          document.documentElement.classList.add("font-large");
+        }
+      } catch {
+        // Ignorer si localStorage est inaccessible
+      }
     </script>
   </head>
-  <body class="crt">
+  <body>
+    <!-- Bandeau supérieur de contact -->
+    <aside class="top-bar" aria-label="Informations pratiques">
+      <div class="info-loc">
+        <span>📍 Intervention à domicile dans toutes les <strong>Hautes-Alpes (05)</strong></span>
+      </div>
+      <div>
+        <a class="phone-direct" href="/contact" aria-label="Demander une intervention">
+          <span>✉️</span> <span>Demander une intervention</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- En-tête principal -->
+    <header class="site-header">
+      <div class="header-container">
+        <a class="brand" href="/" aria-label="Luciole Labs - Retour à l'accueil">
+          <span class="brand-logo" aria-hidden="true">💡</span>
+          <div class="brand-text">
+            <h1>Luciole Labs</h1>
+            <p>Assistance & Formation Informatique à Domicile</p>
+          </div>
+        </a>
+
+        <nav class="main-nav" aria-label="Navigation principale">
+          <a class="nav-link" href="/" aria-current={pathname === "/" ? "page" : undefined}>Accueil</a>
+          <a class="nav-link" href="/prestations" aria-current={pathname === "/prestations" ? "page" : undefined}>Prestations & Tarifs</a>
+          <a class="nav-link" href="/a-propos" aria-current={pathname === "/a-propos" ? "page" : undefined}>À propos</a>
+          <a class="nav-link" href="/faq" aria-current={pathname === "/faq" ? "page" : undefined}>Questions fréquentes</a>
+          <a class="nav-link" href="/contact" aria-current={pathname === "/contact" ? "page" : undefined}>Contact</a>
+          <button id="font-toggle" class="btn-zoom" type="button" aria-label="Agrandir ou réduire la taille du texte">
+            A+ / A-
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Contenu de la page -->
     <slot />
 
+    <!-- Pied de page rassurant et complet -->
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h3>Luciole Labs</h3>
+          <p>
+            Service d'assistance, dépannage et formation informatique à domicile pour les particuliers et les seniors dans les Hautes-Alpes.
+          </p>
+          <p>
+            Patience, bienveillance et explications claires garanties, sans jargon technique.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h3>Services & Liens</h3>
+          <ul>
+            <li><a href="/prestations#depannage">Dépannage à domicile</a></li>
+            <li><a href="/prestations#installation">Installation & configuration</a></li>
+            <li><a href="/prestations#formation">Formation personnalisée seniors</a></li>
+            <li><a href="/prestations">Tous nos tarifs</a></li>
+            <li><a href="/a-propos">À propos de moi (Mode rétro 📟)</a></li>
+            <li><a href="/faq">Questions fréquentes (FAQ)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Prendre contact</h3>
+          <p>
+            ✉️ <strong><a href="/contact" style="color: #6ee7b7; text-decoration: underline;">Formulaire de contact en ligne</a></strong><br />
+            Réponse garantie sous 24h, du lundi au samedi.
+          </p>
+          <p>
+            Remplissez notre formulaire pour être recontacté à l'heure qui vous arrange.
+          </p>
+          <p>
+            📍 Déplacements : Gap, Embrun, Briançon, Veynes, Laragne et tout le 05.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © {new Date().getFullYear()} Luciole Labs · Micro-entreprise · TVA non applicable, art. 293 B du CGI ·
+          <a href="/mentions-legales" style="color: #6ee7b7; text-decoration: underline;">Mentions légales</a>
+        </div>
+        <div>
+          <a class="easter-egg-link" href="/terminal" title="Ouvrir l'ancienne console de commandes rétro">
+            📟 Mode console développeur
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script de gestion du zoom de texte A+/A- -->
     <script>
-      const btn = document.getElementById("theme-toggle");
+      const btn = document.getElementById("font-toggle");
       btn?.addEventListener("click", () => {
         const root = document.documentElement;
-        const next = root.dataset.theme === "dark" ? "light" : "dark";
-        root.dataset.theme = next;
+        const isLarge = root.classList.toggle("font-large");
         try {
-          localStorage.setItem("theme", next);
-        } catch (e) {}
+          localStorage.setItem("font_large", String(isLarge));
+        } catch {
+          // Ignorer si localStorage est inaccessible
+        }
       });
     </script>
   </body>

@@ -1,0 +1,102 @@
+---
+/* eslint-disable no-console */
+import Layout from "../layouts/Layout.astro";
+import { isRegistered, registerUser } from "../data/users";
+import { isValidEmail } from "../utils/isValidEmail";
+
+export const prerender = false; // Rendu à la demande (SSR)
+
+const errors = { username: "", email: "", password: "" };
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const name = data.get("username");
+    const email = data.get("email");
+    const password = data.get("password");
+
+    if (typeof name !== "string" || name.length < 1) {
+      errors.username += "Veuillez saisir un nom d'utilisateur. ";
+    }
+
+    if (typeof email !== "string" || !isValidEmail(email)) {
+      errors.email += "L'e-mail n'est pas valide. ";
+    } else if (await isRegistered(email)) {
+      errors.email += "L'email est déjà enregistré. ";
+    }
+
+    if (typeof password !== "string" || password.length < 6) {
+      errors.password += "Le mot de passe doit comporter au moins 6 caractères. ";
+    }
+
+    const hasErrors = Object.values(errors).some((msg) => Boolean(msg));
+    if (!hasErrors) {
+      await registerUser({
+        name: name as string,
+        email: email as string,
+        password: password as string,
+      });
+      return Astro.redirect(`/login?registered=${encodeURIComponent(name as string)}`);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout
+  title="Inscription - Recette Astro Forms | Luciole Labs"
+  description="Exemple d'implémentation de la recette officielle Astro : Créer des formulaires HTML dans les pages Astro."
+>
+  <main style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
+    <h1>Inscription</h1>
+    <p style="color: var(--text-dim); margin-bottom: 24px;">
+      Exemple tiré de la <a href="https://docs.astro.build/fr/recipes/build-forms/" target="_blank" rel="noopener noreferrer">recette officielle Astro</a> : formulaire HTML traité entièrement côté serveur dans le frontmatter sans JavaScript client.
+    </p>
+
+    <form class="contact-form" method="POST">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur :</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          required
+          class:list={[{ "input-error": Boolean(errors.username) }]}
+        />
+        {errors.username && <span class="field-error" role="alert">⚠️ {errors.username}</span>}
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class:list={[{ "input-error": Boolean(errors.email) }]}
+        />
+        {errors.email && <span class="field-error" role="alert">⚠️ {errors.email}</span>}
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe :</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          minlength="6"
+          class:list={[{ "input-error": Boolean(errors.password) }]}
+        />
+        {errors.password && <span class="field-error" role="alert">⚠️ {errors.password}</span>}
+      </div>
+
+      <button type="submit" class="cta-btn" style="width: 100%;">
+        <span>S'inscrire</span>
+      </button>
+    </form>
+  </main>
+</Layout>

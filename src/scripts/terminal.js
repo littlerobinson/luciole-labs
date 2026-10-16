@@ -1,19 +1,16 @@
 const pages = [
   "accueil",
   "prestations",
-  "process",
   "tarifs",
-  "grille",
   "faq",
   "contact",
-  "apropos",
   "mentions",
 ];
 
 const alias = {
-  methode: "process",
-  prix: "grille",
-  method: "process",
+  grille: "prestations",
+  prix: "tarifs",
+  tarifs: "tarifs",
   ls: "prestations",
   home: "accueil",
   legal: "mentions",
@@ -70,7 +67,7 @@ input?.addEventListener("keydown", (event) => {
 
   if (value === "help") {
     say(
-      "Commandes : accueil, prestations, methode, tarifs, grille, faq, contact, apropos, mentions, clear, theme",
+      "Commandes : accueil, prestations, tarifs, faq, contact, mentions, clear, theme",
     );
   } else if (value === "clear") {
     if (out) out.innerHTML = "";

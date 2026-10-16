@@ -1,0 +1,281 @@
+---
+/* eslint-disable no-console */
+import Layout from "../layouts/Layout.astro";
+import { isValidEmail } from "../utils/isValidEmail";
+
+// Active le rendu à la demande pour traiter les requêtes POST côté serveur (Recette Astro Forms)
+export const prerender = false;
+
+interface FormErrors {
+  nom?: string;
+  email?: string;
+  telephone?: string;
+  ville?: string;
+  general?: string;
+}
+
+const errors: FormErrors = {};
+let isSuccess = false;
+
+let formDataValues = {
+  nom: "",
+  email: "",
+  telephone: "",
+  ville: "",
+  motif: "depannage",
+  message: "",
+};
+
+const motifsLabels: Record<string, string> = {
+  depannage: "Dépannage d'un ordinateur en panne",
+  installation: "Installation d'un nouvel appareil ou imprimante",
+  formation: "Formation ou cours d'initiation senior",
+  demarches: "Aide aux démarches administratives / Sécurité",
+  autre: "Autre question ou renseignement",
+};
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    formDataValues = {
+      nom: (data.get("nom") as string)?.trim() || "",
+      email: (data.get("email") as string)?.trim() || "",
+      telephone: (data.get("telephone") as string)?.trim() || "",
+      ville: (data.get("ville") as string)?.trim() || "",
+      motif: (data.get("motif") as string)?.trim() || "depannage",
+      message: (data.get("message") as string)?.trim() || "",
+    };
+
+    // Validation côté serveur conforme à la recette Astro Forms
+    if (!formDataValues.nom || formDataValues.nom.length < 2) {
+      errors.nom = "Veuillez renseigner votre nom et prénom (au moins 2 caractères).";
+    }
+
+    if (!formDataValues.email || !isValidEmail(formDataValues.email)) {
+      errors.email = "Veuillez indiquer une adresse e-mail valide (ex: contact@exemple.fr).";
+    }
+
+    const cleanPhone = formDataValues.telephone.replace(/[\s.-]/g, "");
+    if (!formDataValues.telephone || !/^(?:(?:\+|00)33|0)[1-9]\d{8}$/.test(cleanPhone)) {
+      errors.telephone = "Veuillez indiquer un numéro de téléphone valide à 10 chiffres (ex: 06 12 34 56 78).";
+    }
+
+    if (!formDataValues.ville || formDataValues.ville.length < 2) {
+      errors.ville = "Veuillez préciser votre commune dans les Hautes-Alpes (ex: Gap, Briançon, Embrun...).";
+    }
+
+    const hasErrors = Object.values(errors).some((msg) => Boolean(msg));
+
+    if (!hasErrors) {
+      // Traitement des données côté serveur (ex: journalisation, envoi d'email de notification)
+      console.info("[Luciole Labs] Nouvelle demande de contact reçue :", {
+        ...formDataValues,
+        date: new Date().toISOString(),
+      });
+      isSuccess = true;
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("[Luciole Labs Contact Error]:", error.message);
+      errors.general = "Une erreur est survenue lors de l'envoi de votre message. Vous pouvez nous joindre directement par téléphone.";
+    }
+  }
+}
+---
+
+<Layout
+  title="Contact & Prise de Rendez-vous - Dépannage informatique Hautes-Alpes | Luciole Labs"
+  description="Contactez Luciole Labs pour une intervention informatique à domicile dans les Hautes-Alpes (Gap, Briançon, Embrun). Contact direct et prise de rendez-vous."
+>
+  <main>
+    <header style="margin-bottom: 30px;">
+      <h1>Prendre contact</h1>
+      <p style="font-size: 1.15rem; color: var(--text-dim); max-width: 800px;">
+        Nous sommes à votre disposition pour toute demande de renseignement, de devis ou pour convenir d'un rendez-vous à votre domicile.
+      </p>
+    </header>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; align-items: start;">
+      <!-- Bloc Appel direct (priorité senior) -->
+      <div>
+        <div style="background: var(--bg-card); border: 2px solid var(--primary); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); margin-bottom: 24px;">
+          <h2 style="margin-top: 0; display: flex; align-items: center; gap: 10px;">
+            <span aria-hidden="true">📞</span> <span>Le plus simple : par téléphone</span>
+          </h2>
+          <p style="color: var(--text-dim);">
+            Pour expliquer votre problème de vive voix et convenir directement d'une date d'intervention, n'hésitez pas à nous appeler :
+          </p>
+          <p style="text-align: center; margin: 24px 0;">
+            <a class="cta-btn" href="tel:+33612345678" style="font-size: 1.25rem; padding: 16px 28px;">
+              <span>📞</span> <span>Appelez-nous</span>
+            </a>
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 16px 0 0; color: var(--text-dim); font-size: 0.95rem;">
+            <li>🕒 <strong>Horaires d'appel :</strong> Du lundi au samedi, de 8h30 à 19h00.</li>
+            <li>💬 Si nous sommes déjà en intervention chez un client, laissez un message avec vos coordonnées et nous vous rappelons dans les 2 heures.</li>
+          </ul>
+        </div>
+
+        <div class="info-box" style="margin-top: 0;">
+          <h3 style="margin-top: 0;">📍 Secteur d'intervention (Hautes-Alpes - 05)</h3>
+          <p style="font-size: 0.95rem;">
+            Nous intervenons à domicile sur l'ensemble du département :
+          </p>
+          <ul style="font-size: 0.95rem; padding-left: 20px; margin-bottom: 10px;">
+            <li><strong>Bassin de Gap</strong> et communes proches (La Bâtie-Neuve, Tallard, Veynes...)</li>
+            <li><strong>Briançonnais</strong> et Vallée de la Guisane</li>
+            <li><strong>Embrunais</strong>, Chorges et Savines-le-Lac</li>
+            <li><strong>Laragne-Montéglin</strong> et Buëch</li>
+          </ul>
+          <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0;">
+            Déplacement gratuit dans un rayon de 15 km autour de notre secteur.
+          </p>
+        </div>
+      </div>
+
+      <!-- Formulaire de contact -->
+      <div>
+        {isSuccess ? (
+          <div class="form-feedback show" role="alert" aria-live="polite">
+            <h3>✓ Votre message a bien été envoyé !</h3>
+            <p style="font-size: 1.05rem; margin-bottom: 14px;">
+              Merci <strong>{formDataValues.nom}</strong>. Nous avons bien reçu votre demande pour <em>{motifsLabels[formDataValues.motif] || formDataValues.motif}</em> à <strong>{formDataValues.ville}</strong>.
+            </p>
+            <p style="margin-bottom: 20px;">
+              Nous vous recontacterons au numéro <strong>{formDataValues.telephone}</strong> ou par e-mail à <strong>{formDataValues.email}</strong> dans un délai maximum de 24h ouvrées pour convenir ensemble d'un rendez-vous.
+            </p>
+            <div>
+              <a href="/contact" class="cta-btn cta-btn-secondary" style="font-size: 0.95rem;">
+                <span>✉️</span> <span>Envoyer un autre message</span>
+              </a>
+            </div>
+          </div>
+        ) : (
+          <form class="contact-form" method="POST">
+            <h2 style="margin-top: 0;">Écrire un message</h2>
+            <p style="color: var(--text-dim); font-size: 0.95rem;">
+              Vous pouvez nous expliquer votre situation via ce formulaire. Nous vous rappelons rapidement.
+            </p>
+
+            {errors.general && (
+              <div class="form-alert-error" role="alert">
+                ⚠️ {errors.general}
+              </div>
+            )}
+
+            <div class="form-group">
+              <label for="nom">Votre nom et prénom *</label>
+              <input
+                type="text"
+                id="nom"
+                name="nom"
+                required
+                minlength="2"
+                value={formDataValues.nom}
+                class:list={[{ "input-error": Boolean(errors.nom) }]}
+                aria-invalid={Boolean(errors.nom)}
+                aria-describedby={errors.nom ? "nom-error" : undefined}
+                placeholder="Ex: Marie Dupont"
+                autocomplete="name"
+              />
+              {errors.nom && (
+                <span id="nom-error" class="field-error" role="alert">
+                  ⚠️ {errors.nom}
+                </span>
+              )}
+            </div>
+
+            <div class="form-group">
+              <label for="email">Votre adresse e-mail *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                value={formDataValues.email}
+                class:list={[{ "input-error": Boolean(errors.email) }]}
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? "email-error" : undefined}
+                placeholder="Ex: marie.dupont@orange.fr"
+                autocomplete="email"
+              />
+              {errors.email && (
+                <span id="email-error" class="field-error" role="alert">
+                  ⚠️ {errors.email}
+                </span>
+              )}
+            </div>
+
+            <div class="form-group">
+              <label for="telephone">Votre numéro de téléphone *</label>
+              <input
+                type="tel"
+                id="telephone"
+                name="telephone"
+                required
+                value={formDataValues.telephone}
+                class:list={[{ "input-error": Boolean(errors.telephone) }]}
+                aria-invalid={Boolean(errors.telephone)}
+                aria-describedby={errors.telephone ? "telephone-error" : undefined}
+                placeholder="Ex: 06 12 34 56 78"
+                autocomplete="tel"
+              />
+              {errors.telephone && (
+                <span id="telephone-error" class="field-error" role="alert">
+                  ⚠️ {errors.telephone}
+                </span>
+              )}
+            </div>
+
+            <div class="form-group">
+              <label for="ville">Votre commune / ville *</label>
+              <input
+                type="text"
+                id="ville"
+                name="ville"
+                required
+                minlength="2"
+                value={formDataValues.ville}
+                class:list={[{ "input-error": Boolean(errors.ville) }]}
+                aria-invalid={Boolean(errors.ville)}
+                aria-describedby={errors.ville ? "ville-error" : undefined}
+                placeholder="Ex: Gap, Briançon, Embrun..."
+                autocomplete="address-level2"
+              />
+              {errors.ville && (
+                <span id="ville-error" class="field-error" role="alert">
+                  ⚠️ {errors.ville}
+                </span>
+              )}
+            </div>
+
+            <div class="form-group">
+              <label for="motif">Motif de votre demande</label>
+              <select id="motif" name="motif">
+                {Object.entries(motifsLabels).map(([val, label]) => (
+                  <option value={val} selected={formDataValues.motif === val}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Décrivez brièvement votre besoin</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                placeholder="Ex: Mon ordinateur est très lent au démarrage et mon imprimante n'imprime plus..."
+              >{formDataValues.message}</textarea>
+            </div>
+
+            <button type="submit" class="cta-btn" style="width: 100%;">
+              <span>✉️</span> <span>Envoyer ma demande</span>
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  </main>
+</Layout>

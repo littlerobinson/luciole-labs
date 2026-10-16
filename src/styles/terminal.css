@@ -17,7 +17,7 @@
   --panel: #e3eee4;
   --fg: #116a37;
   --hi: #06401f;
-  --dim: #4f8a65;
+  --dim: #1e5230;
   --line: #b9d3c0;
   --warn: #8a6100;
   --page: #d5e3d7;
@@ -229,10 +229,35 @@ p {
   border-color: var(--fg);
 }
 
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.card-head h2 {
+  margin: 0;
+}
+
+.price {
+  color: var(--warn);
+  font-weight: 700;
+  font-size: 0.95em;
+  white-space: nowrap;
+}
+
 .card ul {
   margin: 8px 0 0;
   padding-left: 18px;
   color: var(--dim);
+}
+
+.card li strong {
+  color: var(--hi);
+  font-weight: 600;
 }
 
 .scroll {

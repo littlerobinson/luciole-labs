@@ -1,0 +1,76 @@
+---
+import "../styles/terminal.css";
+import Header from "../components/terminal/Header.astro";
+import Nav from "../components/terminal/Nav.astro";
+import Prompt from "../components/terminal/Prompt.astro";
+import Footer from "../components/terminal/Footer.astro";
+import Accueil from "../components/sections/Accueil.astro";
+import Prestations from "../components/sections/Prestations.astro";
+import Tarifs from "../components/sections/Tarifs.astro";
+import Contact from "../components/sections/Contact.astro";
+import Faq from "../components/sections/Faq.astro";
+import Mentions from "../components/sections/Mentions.astro";
+---
+
+<!doctype html>
+<html lang="fr" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Console Développeur - Luciole Labs</title>
+    <meta name="robots" content="noindex, follow" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%96%A5%EF%B8%8F%3C/text%3E%3C/svg%3E"
+    />
+    <script is:inline>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("terminal_theme") || "dark";
+      } catch {
+        // Ignorer si localStorage est inaccessible
+      }
+    </script>
+  </head>
+  <body class="crt">
+    <div style="position: fixed; top: 10px; right: 10px; z-index: 9999;">
+      <a href="/" style="background: #14532d; color: #86efac; border: 1px solid #22c55e; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-family: monospace; font-size: 13px; font-weight: bold;">
+        ← Revenir au site public
+      </a>
+    </div>
+
+    <div class="win">
+      <Header />
+      <Nav />
+
+      <main>
+        <Accueil />
+        <Prestations />
+        <Tarifs />
+        <Contact />
+        <Faq />
+        <Mentions />
+        <div class="out" id="out" aria-live="polite"></div>
+      </main>
+
+      <Prompt />
+      <Footer />
+    </div>
+
+    <script>
+      import "../scripts/terminal.js";
+
+      const btn = document.getElementById("theme-toggle");
+      btn?.addEventListener("click", () => {
+        const root = document.documentElement;
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem("terminal_theme", next);
+        } catch {
+          // Ignorer si localStorage est inaccessible
+        }
+      });
+    </script>
+  </body>
+</html>

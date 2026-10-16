@@ -1,0 +1,203 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Prestations & Tarifs - Dépannage informatique Hautes-Alpes | Luciole Labs"
+  description="Tarifs clairs et fixes d'assistance informatique à domicile dans les Hautes-Alpes. Dépannage PC/Mac, formation senior, installation et rénovation SSD."
+>
+  <main>
+    <header style="margin-bottom: 24px;">
+      <h1>Prestations & Tarifs</h1>
+      <p style="font-size: 1.15rem; color: var(--text-dim); max-width: 800px;">
+        Des tarifs transparents, clairs et sans mauvaise surprise. Le coût de l'intervention est convenu avec vous avant de commencer.
+      </p>
+    </header>
+
+    <!-- Bannière d'engagements tarifaires -->
+    <div class="trust-banner">
+      <span class="icon" aria-hidden="true">💶</span>
+      <div>
+        <h3>Une tarification transparente et sans mauvaise surprise</h3>
+        <p>
+          Chaque intervention fait l'objet d'un accord préalable. Aucun frais caché n'est ajouté : diagnostic clair, déplacement gratuit dans un rayon de 15 km, et facture remise après chaque visite.
+        </p>
+      </div>
+    </div>
+
+    <!-- Catégorie 1 : Dépannage & Assistance -->
+    <div class="category-header" id="depannage">
+      <h2>1. Dépannage & Résolution de pannes</h2>
+      <p>Intervention rapide chez vous pour remettre en état vos appareils du quotidien.</p>
+    </div>
+
+    <div class="cards-grid">
+      <!-- 1. Dépannage -->
+      <article class="service-card">
+        <h2>Dépannage & Réparation à domicile</h2>
+        <p class="card-desc">
+          Votre ordinateur ne démarre plus, rame ou affiche des messages suspects ? Nous trouvons rapidement la panne et nous la réparons directement chez vous.
+        </p>
+        <div class="pricing-block">
+          <p class="price-main">40 € / heure</p>
+          <p class="price-detail">Tarif horaire à domicile · Devis préalable gratuit</p>
+        </div>
+        <ul>
+          <li>Diagnostic complet et détection de panne</li>
+          <li>Nettoyage et éradication complète de virus</li>
+          <li>Résolution des lenteurs et blocages système</li>
+          <li>Rétablissement de connexion Wi-Fi et Internet</li>
+        </ul>
+        <div class="card-action">
+          <a class="cta-btn" href="/contact" style="width: 100%;">Réserver un dépannage</a>
+        </div>
+      </article>
+
+      <!-- 2. Démarches et sécurité -->
+      <article class="service-card">
+        <h2>Démarches administratives & Sécurité</h2>
+        <p class="card-desc">
+          Naviguez en toute tranquillité d'esprit et réalisez vos démarches officielles en ligne sans appréhension et en évitant les pièges du web.
+        </p>
+        <div class="pricing-block">
+          <p class="price-main">40 € / heure</p>
+          <p class="price-detail">Accompagnement pas à pas à domicile</p>
+        </div>
+        <ul>
+          <li>Assistance démarches en ligne (Impôts, Ameli, Retraite)</li>
+          <li>Création et gestion sécurisée de vos mots de passe</li>
+          <li>Prévention contre le piratage et les faux e-mails</li>
+          <li>Sauvegarde de vos photos et documents précieux</li>
+        </ul>
+        <div class="card-action">
+          <a class="cta-btn" href="/contact" style="width: 100%;">Être accompagné</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- Catégorie 2 : Installation & Matériel -->
+    <div class="category-header" id="installation">
+      <h2>2. Installation & Rénovation de matériel</h2>
+      <p>Mise en service d'équipements neufs et modernisation de votre matériel existant.</p>
+    </div>
+
+    <div class="cards-grid">
+      <!-- 3. Installation -->
+      <article class="service-card">
+        <h2>Installation & Configuration de matériel</h2>
+        <p class="card-desc">
+          Profitez immédiatement de votre nouvel équipement, prêt à l'emploi et configuré sans vous perdre dans les manuels et branchements complexes.
+        </p>
+        <div class="pricing-block">
+          <p class="price-main">50 € (forfait)</p>
+          <p class="price-detail">Forfait mise en service complète et paramétrage</p>
+        </div>
+        <ul>
+          <li>Mise en service d'ordinateur ou tablette neuve</li>
+          <li>Installation et paramétrage d'imprimante (35 €)</li>
+          <li>Transfert de vos photos, favoris et documents personnels</li>
+          <li>Installation d'un antivirus fiable et logiciels utiles</li>
+        </ul>
+        <div class="card-action">
+          <a class="cta-btn" href="/contact" style="width: 100%;">Prendre rendez-vous</a>
+        </div>
+      </article>
+
+      <!-- 4. Rénovation matérielle (remplacement SSD) -->
+      <article class="service-card">
+        <h2>Rénovation matérielle & Disque SSD</h2>
+        <p class="card-desc">
+          Donnez une seconde jeunesse à votre PC vieillissant plutôt que de racheter une machine neuve. Une solution économique et écologique.
+        </p>
+        <div class="pricing-block">
+          <p class="price-main">60 € (main-d'œuvre)</p>
+          <p class="price-detail">+ prix de la pièce (disque SSD neuf dès 35 €)</p>
+        </div>
+        <ul>
+          <li>Remplacement du disque dur par un SSD ultra-rapide</li>
+          <li>Clonage exact : conservation de tous vos fichiers</li>
+          <li>Démarrage et ouverture de logiciels 5x plus rapides</li>
+          <li>Devis gratuit avant achat de la pièce matérielle</li>
+        </ul>
+        <div class="card-action">
+          <a class="cta-btn cta-btn-secondary" href="/contact" style="width: 100%;">Demander un devis</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- Catégorie 3 : Formation & Ateliers -->
+    <div class="category-header" id="formation">
+      <h2>3. Formation & Apprentissage personnalisé</h2>
+      <p>Des explications simples et bienveillantes pour gagner en autonomie.</p>
+    </div>
+
+    <div class="cards-grid">
+      <!-- 5. Formation seniors -->
+      <article class="service-card">
+        <h2>Formation personnalisée pour seniors</h2>
+        <p class="card-desc">
+          Un apprentissage patient, sans stress et à votre rythme. Vous pratiquez vous-même sur votre propre matériel avec un accompagnement pas à pas.
+        </p>
+        <div class="pricing-block">
+          <p class="price-main">40 € / heure</p>
+          <p class="price-detail">Cours particulier à votre domicile</p>
+        </div>
+        <ul>
+          <li>Prise en main facile de l'ordinateur ou smartphone</li>
+          <li>Envoyer et recevoir e-mails, photos et messages</li>
+          <li>Appels vidéo avec la famille (WhatsApp, Skype)</li>
+          <li>Fiches mémo claires rédigées et laissées chez vous</li>
+        </ul>
+        <div class="card-action">
+          <a class="cta-btn" href="/contact" style="width: 100%;">Demander une formation</a>
+        </div>
+      </article>
+
+      <!-- 6. Ateliers collectifs -->
+      <article class="service-card">
+        <h2>Ateliers collectifs (Clubs & Mairies)</h2>
+        <p class="card-desc">
+          Apprendre ensemble dans une atmosphère conviviale et bienveillante. Idéal pour les clubs des aînés, mairies ou associations locales.
+        </p>
+        <div class="pricing-block">
+          <p class="price-main">15 € / pers. / heure</p>
+          <p class="price-detail">Tarif de groupe dégressif selon effectif</p>
+        </div>
+        <ul>
+          <li>Thèmes au choix : tablettes, sécurité, démarches, photos</li>
+          <li>Petits groupes pour que chacun puisse pratiquer</li>
+          <li>Exercices pratiques et supports papier imprimés</li>
+          <li>Ambiance détendue et questions libres à tout moment</li>
+        </ul>
+        <div class="card-action">
+          <a class="cta-btn cta-btn-secondary" href="/contact" style="width: 100%;">Organiser un atelier</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- Précisions sur les déplacements et mentions légales -->
+    <section class="info-box" style="margin-top: 40px;">
+      <h2>Informations sur les déplacements & facturation</h2>
+      <ul style="margin: 12px 0 0; padding-left: 20px;">
+        <li>
+          <strong>Frais de déplacement :</strong> Déplacement inclus gratuitement dans un rayon de 15 km autour de Gap et Briançon. Au-delà, participation forfaitaire modérée de 10 € à 15 € convenue à l'avance.
+        </li>
+        <li>
+          <strong>Facturation :</strong> Une facture détaillée vous est transmise après chaque intervention.
+        </li>
+        <li>
+          <strong>TVA :</strong> TVA non applicable, article 293 B du Code Général des Impôts (CGI).
+        </li>
+        <li>
+          <strong>Moyens de paiement acceptés :</strong> Chèque bancaire, virement, carte bancaire ou espèces.
+        </li>
+      </ul>
+    </section>
+
+    <div style="text-align: center; margin: 40px 0;">
+      <a class="cta-btn" href="/contact" style="font-size: 1.2rem; padding: 16px 36px;">
+        <span>✉️</span> <span>Une question sur nos tarifs ? Contactez-nous</span>
+      </a>
+    </div>
+  </main>
+</Layout>

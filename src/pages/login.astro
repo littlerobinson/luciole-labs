@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const registered = Astro.url.searchParams.get("registered");
+---
+
+<Layout
+  title="Connexion / Compte - Luciole Labs"
+  description="Page de connexion et confirmation de compte."
+>
+  <main style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
+    <h1>Connexion</h1>
+
+    {registered && (
+      <div class="form-feedback show" style="margin-bottom: 24px;" role="status">
+        <h3>✓ Compte créé avec succès !</h3>
+        <p>
+          Bienvenue <strong>{registered}</strong> ! Votre compte a été enregistré avec succès via la recette Astro Forms.
+        </p>
+      </div>
+    )}
+
+    <div class="info-box" style="margin-top: 20px;">
+      <p>
+        Cette page illustre la redirection après soumission réussie d'un formulaire HTML avec <code>Astro.redirect('/login')</code> selon la recette officielle Astro.
+      </p>
+      <p style="margin-top: 16px;">
+        <a href="/register" class="cta-btn cta-btn-secondary" style="font-size: 0.95rem;">
+          ← Retourner au formulaire d'inscription
+        </a>
+      </p>
+    </div>
+  </main>
+</Layout>

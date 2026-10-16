@@ -1,0 +1,316 @@
+---
+import "../styles/terminal.css";
+---
+
+<!doctype html>
+<html lang="fr" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>À Propos de moi — Luciole Labs [Mode Terminal]</title>
+    <meta
+      name="description"
+      content="Découvrez qui se cache derrière Luciole Labs : artisan du dépannage informatique et formation senior dans les Hautes-Alpes. Présentation en mode terminal rétro."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%92%A1%3C/text%3E%3C/svg%3E"
+    />
+    <script is:inline>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("terminal_theme") || "dark";
+      } catch {
+        // Ignorer si localStorage est inaccessible
+      }
+    </script>
+  </head>
+  <body class="crt">
+    <!-- Bouton flottant retour au site classique -->
+    <div style="position: fixed; top: 12px; right: 12px; z-index: 9999;">
+      <a
+        href="/"
+        style="background: #14532d; color: #86efac; border: 1px solid #22c55e; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-family: monospace; font-size: 14px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.5);"
+      >
+        ← Revenir au site public
+      </a>
+    </div>
+
+    <div class="win">
+      <!-- En-tête de fenêtre terminal -->
+      <header>
+        <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="path">studio@luciole-labs: ~/a-propos <small>alexandre@hautes-alpes*</small></div>
+        <span class="spacer dim" id="clock">--:--:--</span>
+      </header>
+
+      <!-- Barre de navigation rétro -->
+      <nav aria-label="Navigation terminal">
+        <button data-target="bio" class="tab-btn active" type="button">bio</button>
+        <button data-target="parcours" class="tab-btn" type="button">parcours</button>
+        <button data-target="valeurs" class="tab-btn" type="button">valeurs</button>
+        <button data-target="competences" class="tab-btn" type="button">compétences</button>
+        <button data-target="contact" class="tab-btn" type="button">contact</button>
+        <button id="theme-toggle" class="spacer" type="button" aria-label="Changer de thème">
+          <span class="to-light">mode clair</span>
+          <span class="to-dark">mode sombre</span>
+        </button>
+        <button id="crt-toggle" aria-pressed="true" type="button">CRT</button>
+        <button id="big-toggle" aria-pressed="false" type="button">A+</button>
+      </nav>
+
+      <main>
+        <!-- Section 1 : Bio -->
+        <section id="bio" class="term-section on">
+          <h1>cat BIO.md</h1>
+          <p class="dim">Qui se cache derrière Luciole Labs ?</p>
+          <div class="box">
+            <h2>Alexandre — Dépanneur informatique & Artisan du numérique</h2>
+            <p>
+              Basé dans les <strong>Hautes-Alpes (05)</strong>, j'aide au quotidien les particuliers et les seniors
+              à dompter leurs outils informatiques, sans stress et sans vocabulaire obscur.
+            </p>
+          </div>
+          <div class="grid">
+            <div class="card">
+              <h2>📍 Localisation</h2>
+              <p>Hautes-Alpes : Gap, Briançon, Embrun, Veynes, Laragne.</p>
+            </div>
+            <div class="card">
+              <h2>🎯 Mission</h2>
+              <p>Rendre le numérique accessible, humain et utile à tous.</p>
+            </div>
+            <div class="card">
+              <h2>🤝 Spécialité</h2>
+              <p>Pédagogie senior, dépannage à domicile & devis gratuit.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2 : Parcours -->
+        <section id="parcours" class="term-section">
+          <h1>cat PARCOURS.md</h1>
+          <p class="dim">De la passion du code et du hardware à l'accompagnement humain.</p>
+          <div class="box">
+            <h2>L'informatique comme artisanat</h2>
+            <p>
+              Tombé dans l'informatique très jeune, j'ai passé des années à démonter, réparer, optimiser des machines,
+              et à développer des sites web et logiciels.
+            </p>
+            <p style="margin-top: 10px;">
+              Face à la dématérialisation obligatoire de toutes les démarches du quotidien (démarches administratives, santé, banque),
+              j'ai constaté la détresse de nombreuses personnes âgées ou peu technophiles. J'ai donc créé <strong>Luciole Labs</strong>
+              pour apporter une assistance technique humaine, rassurante et de proximité.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 3 : Valeurs -->
+        <section id="valeurs" class="term-section">
+          <h1>cat VALEURS.md</h1>
+          <p class="dim">Les 4 piliers de mon accompagnement.</p>
+          <div class="grid">
+            <div class="card">
+              <h2>1. Zéro Jargon</h2>
+              <p>Pas d'acronymes barbares. Des mots simples, des comparaisons du quotidien et des fiches mémo claires.</p>
+            </div>
+            <div class="card">
+              <h2>2. Patience Absolue</h2>
+              <p>On répète 10 fois s'il le faut. C'est vous qui tenez la souris, c'est comme ça qu'on apprend vraiment.</p>
+            </div>
+            <div class="card">
+              <h2>3. Réparer plutôt que jeter</h2>
+              <p>Un disque SSD à 35 € redonne souvent 5 ans de vie à un vieil ordinateur. Sobriété et économies d'abord.</p>
+            </div>
+            <div class="card">
+              <h2>4. 100 % Transparence</h2>
+              <p>Prix annoncés avant intervention. TVA non applicable, devis préalable gratuit.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4 : Compétences -->
+        <section id="competences" class="term-section">
+          <h1>cat COMPETENCES.txt</h1>
+          <p class="dim">Savoir-faire technique et pédagogique.</p>
+          <div class="grid">
+            <div class="card">
+              <h2>Dépannage & Réparation</h2>
+              <ul>
+                <li>Diagnostic matériel & pannes système</li>
+                <li>Éradication virus, arnaques et logiciels espions</li>
+                <li>Remplacement disque dur par SSD ultra-rapide</li>
+                <li>Rétablissement Wi-Fi, box Internet et imprimantes</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h2>Pédagogie & Formation</h2>
+              <ul>
+                <li>Initiation pas à pas seniors (tablette & PC)</li>
+                <li>Accompagnement démarches en ligne officielles</li>
+                <li>Sécurisation des mots de passe et des données</li>
+                <li>Ateliers collectifs pour clubs des aînés & mairies</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5 : Contact -->
+        <section id="contact" class="term-section">
+          <h1>cat CONTACT.md</h1>
+          <p class="dim">Prendre contact pour une intervention à domicile.</p>
+          <div class="box">
+            <h2>✉️ Formulaire de contact</h2>
+            <p>Pour planifier une intervention ou demander un devis, utilisez notre formulaire en ligne.</p>
+            <p style="margin-top: 10px;">
+              🕒 Disponibilité : Du lundi au samedi, 8h30 - 19h00 (réponse sous 24h).
+            </p>
+            <p style="margin-top: 10px;">
+              📍 Déplacements : Gap, Embrun, Briançon, Veynes, Laragne et tout le 05.
+            </p>
+          </div>
+          <p style="margin-top: 20px;">
+            <a class="cta" href="/contact">Formulaire de contact</a>
+            <a class="cta cta-ghost" href="/prestations">Consulter les tarifs</a>
+          </p>
+        </section>
+
+        <div class="out" id="out" aria-live="polite"></div>
+      </main>
+
+      <!-- Invite de commande interactive -->
+      <div class="prompt">
+        <label for="cmd">alexandre@luciole-labs:~/a-propos$</label>
+        <input
+          id="cmd"
+          type="text"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="help, bio, parcours, valeurs, competences, contact, clear…"
+        />
+      </div>
+
+      <!-- Pied de terminal -->
+      <footer>
+        <span><b>STATUS 200 OK</b></span>
+        <span>UTF-8</span>
+        <span id="mode-indicator">PAGE: bio</span>
+        <span class="spacer">
+          <a href="/mentions-legales" style="color: inherit;">mentions légales</a> · © Luciole Labs
+        </span>
+      </footer>
+    </div>
+
+    <!-- Script interactif de la page À propos rétro -->
+    <script>
+      const tabs = document.querySelectorAll(".tab-btn");
+      const sections = document.querySelectorAll(".term-section");
+      const modeIndicator = document.getElementById("mode-indicator");
+      const input = document.getElementById("cmd") as HTMLInputElement | null;
+      const out = document.getElementById("out");
+
+      function showSection(id: string) {
+        let found = false;
+        sections.forEach((sec) => {
+          if (sec.id === id) {
+            sec.classList.add("on");
+            found = true;
+          } else {
+            sec.classList.remove("on");
+          }
+        });
+
+        tabs.forEach((tab) => {
+          tab.classList.toggle("active", tab.getAttribute("data-target") === id);
+        });
+
+        if (modeIndicator) {
+          modeIndicator.textContent = `PAGE: ${id}`;
+        }
+        return found;
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const target = tab.getAttribute("data-target");
+          if (target) {
+            showSection(target);
+            if (out) out.innerHTML = "";
+          }
+        });
+      });
+
+      function say(text: string, className?: string) {
+        if (!out) return;
+        const line = document.createElement("div");
+        line.textContent = text;
+        if (className) line.className = className;
+        out.appendChild(line);
+      }
+
+      input?.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter") return;
+        const cmd = input.value.trim().toLowerCase();
+        input.value = "";
+        if (!cmd) return;
+
+        if (out) out.innerHTML = "";
+        say(`$ ${cmd}`, "dim");
+
+        if (cmd === "help") {
+          say("Commandes disponibles : bio, parcours, valeurs, competences, contact, clear, theme, site");
+        } else if (cmd === "clear") {
+          if (out) out.innerHTML = "";
+        } else if (cmd === "theme") {
+          document.getElementById("theme-toggle")?.click();
+          say(`Thème basculé.`);
+        } else if (cmd === "site") {
+          window.location.href = "/";
+        } else if (showSection(cmd)) {
+          say(`Navigation vers ${cmd}…`);
+        } else {
+          say(`Commande introuvable : ${cmd} (tapez help)`, "warn");
+        }
+      });
+
+      // Bouton thème
+      const themeBtn = document.getElementById("theme-toggle");
+      themeBtn?.addEventListener("click", () => {
+        const root = document.documentElement;
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem("terminal_theme", next);
+        } catch {
+          // Ignorer
+        }
+      });
+
+      // Bouton CRT
+      const crtBtn = document.getElementById("crt-toggle");
+      crtBtn?.addEventListener("click", () => {
+        const on = document.body.classList.toggle("crt");
+        crtBtn.setAttribute("aria-pressed", String(on));
+      });
+
+      // Bouton A+
+      const bigBtn = document.getElementById("big-toggle");
+      bigBtn?.addEventListener("click", () => {
+        const on = document.body.classList.toggle("big");
+        bigBtn.setAttribute("aria-pressed", String(on));
+        bigBtn.textContent = on ? "A−" : "A+";
+      });
+
+      // Horloge
+      function updateClock() {
+        const el = document.getElementById("clock");
+        if (el) {
+          const now = new Date();
+          el.textContent = now.toTimeString().split(" ")[0];
+        }
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+    </script>
+  </body>
+</html>
